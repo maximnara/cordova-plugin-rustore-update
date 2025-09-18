@@ -1,0 +1,96 @@
+repositories {
+    // Add RuStore repository
+    maven {
+        url = uri("https://artifactory-external.vkpartner.ru/artifactory/maven")
+    }
+    google()
+    mavenCentral()
+}
+
+dependencies {
+    // RuStore Core SDK (required for appupdate)
+    implementation(platform("ru.rustore.sdk:bom:2025.08.01"))
+    implementation("ru.rustore.sdk:appupdate")
+
+    // Required Kotlin dependencies
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.20'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+
+    // AndroidX dependencies
+    implementation 'androidx.core:core-ktx:1.12.0'
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.activity:activity-ktx:1.8.0'
+    implementation 'androidx.fragment:fragment-ktx:1.6.2'
+}
+
+// Load signing properties if they exist
+def releasePropertiesFile = file("app/java/com/maximnara/rustore/update/cert/release.properties")
+def releaseProperties = new Properties()
+if (releasePropertiesFile.exists()) {
+    releaseProperties.load(new FileInputStream(releasePropertiesFile))
+}
+
+android {
+    namespace 'com.maximnara.rustore.update'
+
+    // Configure signing for release build
+    if (releasePropertiesFile.exists()) {
+        signingConfigs {
+            release {
+                storeFile file(releaseProperties['storeFile'])
+                storePassword releaseProperties['store_password']
+                keyAlias releaseProperties['key_alias']
+                keyPassword releaseProperties['key_password']
+            }
+        }
+
+        buildTypes {
+            release {
+                signingConfig signingConfigs.release
+            }
+        }
+    }
+
+    // Default configuration
+    defaultConfig {
+        minSdkVersion 23
+        targetSdkVersion 34
+    }
+
+    // Compile options for Java 11
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    // Kotlin compile options
+    kotlinOptions {
+        jvmTarget = '11'
+        freeCompilerArgs += ['-Xjvm-default=all']
+    }
+
+    // Build features
+    buildFeatures {
+        buildConfig true
+    }
+
+    // Packaging options to handle potential conflicts
+    packagingOptions {
+        resources {
+            excludes += ['META-INF/DEPENDENCIES']
+            excludes += ['META-INF/LICENSE']
+            excludes += ['META-INF/LICENSE.txt']
+            excludes += ['META-INF/NOTICE']
+            excludes += ['META-INF/NOTICE.txt']
+            excludes += ['META-INF/ASL2.0']
+            excludes += ['META-INF/LGPL2.1']
+        }
+    }
+
+    // Lint options
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}

@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin
+        id="cordova-plugin-rustore-update"
+        version="0.0.1"
+        xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+>
+    <name>RustoreUpdate Plugin</name>
+    <description>Cordova plugin for rustore-update</description>
+    <js-module src="www/rustore-update.js" name="RustoreUpdate">
+        <clobbers target="RustoreUpdate" />
+    </js-module>
+
+    <engines>
+        <engine name="cordova" version=">=12.0" />
+        <engine name="cordova-android" version=">=10.1.2" />
+        <engine name="cordova-ios" version=">=7.0.1" />
+    </engines>
+
+    <platform name="android">
+
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="RustoreUpdatePlugin">
+                <param name="android-package" value="com.maximnara.rustore.update.RustoreUpdatePlugin" />
+            </feature>
+            <preference name="android-gradleVersion" value="8.13" />
+            <preference name="android-minSdkVersion" value="23" />
+            <preference name="android-compileSdkVersion" value="35" />
+            <preference name="GradlePluginKotlinEnabled" value="true" />
+        </config-file>
+
+        <source-file src="src/android" target-dir="java/com/maximnara/rustore/update" />
+        <framework src="src/android/rustore-update.gradle" custom="true" type="gradleReference" />
+        <source-file src="cert/" target-dir="java/com/maximnara/rustore/update" />
+    </platform>
+</plugin>

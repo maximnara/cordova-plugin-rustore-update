@@ -1,0 +1,41 @@
+{
+  "name": "cordova-plugin-rustore-update",
+  "version": "1.0.0",
+  "description": "Cordova plugin for rustore-update",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maximnara/cordova-plugin-rustore-update"
+  },
+  "keywords": [
+    "cordova",
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios",
+    "rustore-update"
+  ],
+  "author": "luzhkov",
+  "license": "MIT",
+  "cordova": {
+    "id": "cordova-plugin-rustore-update",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "engines": [
+    {
+      "name": "cordova",
+      "version": ">=12.0.0"
+    }
+  ],
+  "dependencies": {
+    "node": ">=18.0.0"
+  },
+  "devDependencies": {
+    "cordova": "^12.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/maximnara/cordova-plugin-rustore-update/issues"
+  },
+  "homepage": "https://github.com/maximnara/cordova-plugin-rustore-update"
+}

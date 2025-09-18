@@ -1,0 +1,4 @@
+ANDROID_FILE=src/android/RustoreUpdatePlugin.kt
+IOS_FILE=src/ios/RustoreUpdatePlugin.swift
+IOS_HEADER_FILE=src/ios/RustoreUpdatePlugin.h
+JS_FILE=www/rustore-update.js
