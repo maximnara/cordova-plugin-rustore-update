@@ -8,6 +8,10 @@
 ```bash
 cordova plugin add ../cordova-plugin-rustore-update
 ```
+или
+```bash
+cordova plugin add cordova-plugin-rustore-update
+```
 
 ## Основное использование
 
